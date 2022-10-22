@@ -1,4 +1,4 @@
-#!/Users/ctw01992/development/bjj_kimonos_scripts/bin python3
+#!/usr/bin python3
 
 from venv import create
 import requests
