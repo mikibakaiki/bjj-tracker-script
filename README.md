@@ -4,6 +4,8 @@ Basic script to scrap a specific website and keep track of kimono prices. The id
 
 ## Useful commands:
 
+- `nohup python main.py`
+
 - `pip freeze > requirements.txt` for the requirements
 
 - `pip install -r requirements.txt` to install the requirements
