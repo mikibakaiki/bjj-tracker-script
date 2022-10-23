@@ -1,27 +1,12 @@
 #!/usr/bin python3
 
-from venv import create
 import requests
 from bs4 import BeautifulSoup
-import sqlite3
-from sqlite3 import Error
 from datetime import datetime
-
-from sqlalchemy import Column, Date, Float, Integer, String, create_engine
-from sqlalchemy.orm import declarative_base, Session
 
 
 RONINWEAR = "https://www.roninwear.pt/kimono-jiu-jitsu-gi-c-64_303_239.html?all=1&filter_stock=nostock&sort_price=0&filter_price=0&cPath=64_303_239&filter_id=0&filter_size=9&filter_color=0"
 
-# all including without stock
-#"https://www.roninwear.pt/kimono-jiu-jitsu-gi-c-64_303_239.html?all=1&filter_stock=stock&sort_price=0&filter_price=0&cPath=64_303_239&filter_id=0&filter_size=9&filter_color=0"
-
-# good link
-#"https://www.roninwear.pt/kimono-jiu-jitsu-gi-c-64_303_239.html?all=0&filter_stock=stock&sort_price=0&filter_price=0&cPath=64_303_239&filter_id=0&filter_size=9&filter_color=0"
-
-# test links
-# "https://www.roninwear.pt/kimono-jiu-jitsu-gi-c-64_303_239.html?all=0&filter_stock=stock&sort_price=0&filter_price=0&cPath=64_303_239&filter_id=0&filter_size=8&filter_color=0"
-# https://www.roninwear.pt/kimono-jiu-jitsu-gi-c-64_303_239.html?page=2&filter_color=0&filter_size=10&filter_id=0&filter_price=0&sort_price=0&filter_stock=stock&all=0
 PRICE_THRESHOLD = 70
 KIMONO_SIZE = {'A1': 8, 'A2': 9, 'A3': 10}
 parent_class = "prdct-cntd"
@@ -85,49 +70,6 @@ def get_title_and_url(element):
     return title_value.text.strip(), url
 
 
-# def create_connection(db_file):
-#     conn = None
-#     try:
-#         conn = sqlite3.connect(db_file)
-#         return conn
-#     except Error as e:
-#         print(e)
-
-#     return conn
-
-
-# def create_table(conn):
-#     query = '''CREATE TABLE IF NOT EXISTS kimonos (
-#         id INTEGER PRIMARY KEY AUTOINCREMENT,
-#         name TEXT,
-#         price REAL NOT NULL,
-#         date TEXT NOT NULL,
-#         url TEXT NOT NULL
-#     )'''
-#     try:
-#         cursor = conn.cursor()
-#         cursor.execute(query)
-#         print("Table created successfully..")
-#         conn.commit()
-#     except Error as e:
-#         print(e)
-    
-
-# def insert_kimono(conn, kimono):
-#     query = '''INSERT INTO kimonos (
-#             name, price, date, url
-#         ) VALUES (
-#             ?, ?, ?, ?
-#         )'''
-#     try:
-#         cursor = conn.cursor()
-#         cursor.execute(query, (kimono.name, kimono.price, kimono.timestamp, kimono.url))
-#         conn.commit()
-#         print("Kimono inserted..")
-#     except Error as e:
-#         print(e)
-
-
 def scrap(soup):
     
     results = []
@@ -142,29 +84,6 @@ def scrap(soup):
         ronin_wear_kimonos.append(kimono_generator(res))
 
 
-
-# Base = declarative_base()
-
-# class Kimono(Base):
-#     __tablename__ = "kimonos"
-
-#     id = Column(Integer, primary_key=True)
-#     name = Column(String(500))
-#     price = Column(Float)
-#     former_price = Column(Float)
-#     discount = Column(Float)
-#     timestamp = Column(Date)
-#     url = Column(String(2000))
-
-#     def __str__(self) -> str:
-#         if self.former_price == 0.0:
-#             return f"{self.name} : Price = {self.price}€ -> {self.url}"
-#         else :
-#             strikeout_price = '\u0336'.join(f"{self.former_price}€") + '\u0336'
-#             return f"{self.name} : Price = {strikeout_price} {self.price}€ | Discount: {self.discount}% -> {self.url}"
-
-#     def __repr__(self):
-#         return f"Kimono(id={self.id!r}, name={self.name!r}, price={self.price!r}, former_price={self.former_price!r}, discount={self.discount!r}, date={self.date!r}, url={self.url!r})"
 
 
 def scrap_roninwear():

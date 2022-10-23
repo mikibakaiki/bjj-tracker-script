@@ -2,6 +2,8 @@ from dotenv import dotenv_values
 from mongoengine import *
 from models import Kimono
 from bjj_tracker import scrap_roninwear, KimonoData
+import schedule
+import time
 
 
 config = dotenv_values(".env")
@@ -52,25 +54,12 @@ def get_scrapped_kimonos_list():
 def convert_kimono_data_to_kimono(kimono: KimonoData):
     return Kimono(name=kimono.name, price=[kimono.price], former_price=[kimono.former_price], discount=[kimono.discount], url=kimono.url, timestamp=[kimono.timestamp])
 
-if __name__ == '__main__':
-    get_kimonos()
+# if __name__ == '__main__':
+#     get_kimonos()
 
 
+schedule.every().day.at("12:00").do(get_kimonos)
 
-
-# @app.get("/")
-# async def root():
-#     return {"message": "Welcome to the PyMongo tutorial!"}
-
-
-# @app.on_event("startup")
-# def startup_db_client():
-#     app.mongodb_client = MongoClient(config["ATLAS_URI"])
-#     app.database = app.mongodb_client[config["DB_NAME"]]
-#     print("Connected to the MongoDB database!")
-
-# @app.on_event("shutdown")
-# def shutdown_db_client():
-#     app.mongodb_client.close()
-
-# app.include_router(book_router, tags=["kimonos"], prefix="/kimonos")
+while True:
+    schedule.run_pending()
+    time.sleep(1)
