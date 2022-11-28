@@ -2,8 +2,6 @@ from dotenv import dotenv_values
 from mongoengine import *
 from models import Kimono
 from bjj_tracker import scrap_roninwear, KimonoData
-import schedule
-import time
 
 
 config = dotenv_values(".env")
@@ -54,12 +52,12 @@ def get_scrapped_kimonos_list():
 def convert_kimono_data_to_kimono(kimono: KimonoData):
     return Kimono(name=kimono.name, price=[kimono.price], former_price=[kimono.former_price], discount=[kimono.discount], url=kimono.url, timestamp=[kimono.timestamp])
 
-# if __name__ == '__main__':
-#     get_kimonos()
+if __name__ == '__main__':
+    get_kimonos()
 
 
-schedule.every().day.at("12:00").do(get_kimonos)
+# schedule.every().day.at("12:00").do(get_kimonos)
 
-while True:
-    schedule.run_pending()
-    time.sleep(1)
+# while True:
+#     schedule.run_pending()
+#     time.sleep(1)
