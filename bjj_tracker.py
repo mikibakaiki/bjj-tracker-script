@@ -5,7 +5,8 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 
 
-RONINWEAR = "https://www.roninwear.pt/kimono-jiu-jitsu-gi-c-64_303_239.html?all=1&filter_stock=nostock&sort_price=0&filter_price=0&cPath=64_303_239&filter_id=0&filter_size=9&filter_color=0"
+RONINWEAR = "https://roninwear.pt/kimono-jiu-jitsu-gi-c-64_303_239.html?all=1&filter_stock=nostock&sort_price=0&filter_price=0&cPath=64_303_239&filter_id=0&filter_size=9&filter_color=0"
+
 
 PRICE_THRESHOLD = 70
 KIMONO_SIZE = {'A1': 8, 'A2': 9, 'A3': 10}
@@ -17,7 +18,7 @@ ronin_wear_kimonos = []
 
 
 class KimonoData:
-    def __init__(self, name: str, price: float, former_price=-1.0, discount=0.0, url='', timestamp = None):
+    def __init__(self, name: str, price: float, former_price=-1.0, discount=0.0, url='', timestamp: datetime = None):
         self.name = name
         self.price = price
         self.former_price = former_price
@@ -51,7 +52,6 @@ def filter_by_pants(parent_element):
 
 def get_price(element):
     prices = element.find("div", class_=price_class)
-
     if len(prices.contents) == 1 :
         return float(prices.text.strip()[:-1].replace(',', '.')),-1.0,0.0
     else:
@@ -77,8 +77,7 @@ def scrap(soup):
     for parent in filter(filter_by_pants, soup.find_all("div", class_=parent_class)):
         results.append(parent)
     
-    print("\nKIMONOS\n") 
-    print(len(results))
+    print("\n# OF KIMONOS: ", len(results))
 
     for res in results:
         ronin_wear_kimonos.append(kimono_generator(res))
@@ -88,19 +87,18 @@ def scrap(soup):
 
 def scrap_roninwear():
     ronin_wear_kimonos.clear()
-    print(f"@script before running {len(ronin_wear_kimonos)}")
+    # print(f"@script before running {len(ronin_wear_kimonos)}")
     page = requests.get(RONINWEAR)
 
     ## parse source
     soup = BeautifulSoup(page.content, 'html.parser')
-
     scrap(soup)    
     
     # print kimonos
     # for rwk in ronin_wear_kimonos:
     #     print(rwk)
 
-    print(f"@script after running {len(ronin_wear_kimonos)}")
+    #print(f"@script after running {len(ronin_wear_kimonos)}")
     return ronin_wear_kimonos
 
 
