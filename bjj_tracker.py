@@ -3,7 +3,7 @@
 import requests
 from bs4 import BeautifulSoup
 from datetime import datetime
-
+import time, sys
 
 RONINWEAR = "https://roninwear.pt/kimono-jiu-jitsu-gi-c-64_303_239.html?all=1&filter_stock=nostock&sort_price=0&filter_price=0&cPath=64_303_239&filter_id=0&filter_size=9&filter_color=0"
 
@@ -33,6 +33,21 @@ class KimonoData:
             strikeout_price = '\u0336'.join(f"{self.former_price}€") + '\u0336'
             return f"{self.name} : Price = {strikeout_price} {self.price}€ | Discount: {self.discount}% -> {self.url} | {self.timestamp}"
     
+
+
+def update_progress(job_title, progress):
+    length = 20 # modify this to change the length
+    block = int(round(length*progress))
+    msg = "\r{0}: [{1}] {2}%".format(job_title, "#"*block + "-"*(length-block), round(progress*100, 2))
+    if progress >= 1: msg += " DONE\r\n"
+    sys.stdout.write(msg)
+    sys.stdout.flush()
+
+# Test
+# for i in range(100):
+#     time.sleep(1000)
+#     update_progress("Fetching Kimonos...", i/100.0)
+# update_progress("Fetching Kimonos...", 1)
 
 
 def kimono_generator(element):
@@ -73,14 +88,21 @@ def get_title_and_url(element):
 def scrap(soup):
     
     results = []
-
+    # print( len(list(filter(filter_by_pants, soup.find_all("div", class_=parent_class))))
+    # for parent, idx in enumerate(list(filter(filter_by_pants, soup.find_all("div", class_=parent_class)))):
+    #     print(parent)
+    #     results.append(parent)
     for parent in filter(filter_by_pants, soup.find_all("div", class_=parent_class)):
+        print(parent)
         results.append(parent)
-    
+
     print("\n# OF KIMONOS: ", len(results))
 
-    for res in results:
+    for idx, res in enumerate(results):
         ronin_wear_kimonos.append(kimono_generator(res))
+        time.sleep(0.001)
+        update_progress("Creating Kimonos", idx/len(results))
+    update_progress("Creating Kimonos", 1)
 
 
 
