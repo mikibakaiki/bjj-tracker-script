@@ -10,7 +10,7 @@ Basic script to scrap a specific website and keep track of kimono prices. The id
 
 ## Useful commands:
 
-- `nohup python main.py`
+- `nohup python main.py` to [run and let the process sleep](https://stackoverflow.com/questions/2975624/how-to-run-a-script-in-the-background-even-after-i-logout-ssh)
 
 - `pip freeze > requirements.txt` for the requirements
 
