@@ -93,7 +93,7 @@ def scrap(soup):
     #     print(parent)
     #     results.append(parent)
     for parent in filter(filter_by_pants, soup.find_all("div", class_=parent_class)):
-        print(parent)
+        #print(parent)
         results.append(parent)
 
     print("\n# OF KIMONOS: ", len(results))
