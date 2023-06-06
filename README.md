@@ -6,8 +6,11 @@ Basic script to scrap a specific website and keep track of kimono prices. The id
 
 1. Create a `.env` file with the following:
 
-`ATLAS_URI=mongodb+srv://username:password@cluster.mongodb.net/db_name?retryWrites=true&w=majority`
+`ATLAS_URI=mongodb+srv://USERNAME:password@cluster.mongodb.net/db_name?retryWrites=true&w=majority`
 
+or 
+
+`ATLAS_URI=mongodb+srv://USERNAME:password@cluster0.4bmmqfp.mongodb.net/?retryWrites=true&w=majority`
 ## Useful commands:
 
 - `nohup python main.py` to [run and let the process sleep](https://stackoverflow.com/questions/2975624/how-to-run-a-script-in-the-background-even-after-i-logout-ssh)
