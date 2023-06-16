@@ -8,10 +8,6 @@ kimonos = []
 connect(host=f'{ os.environ.get("ATLAS_URI")}')
 
 
-def lambda_handler():
-    get_scrapped_kimonos_list()
-    kimonos.clear()
-
 
 def create_kimono(kimono: KimonoData):
     # print(f'creating kimono {kimono}')
@@ -58,6 +54,9 @@ def convert_kimono_data_to_kimono(kimono: KimonoData):
 
 
 
+def lambda_handler():
+    get_scrapped_kimonos_list()
+    kimonos.clear()
 
 # schedule.every().day.at("12:00").do(get_kimonos)
 
