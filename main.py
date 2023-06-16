@@ -1,16 +1,14 @@
-from dotenv import dotenv_values
 from mongoengine import *
 from models import Kimono
 from bjj_tracker import scrap_roninwear, KimonoData
 
 
-config = dotenv_values(".env")
 kimonos = []
 
-connect(host=f'{config["ATLAS_URI"]}')
+connect(host=f'{ os.environ.get("ATLAS_URI")}')
 
 
-def get_kimonos():
+def lambda_handler():
     get_scrapped_kimonos_list()
     kimonos.clear()
 
@@ -59,8 +57,6 @@ def convert_kimono_data_to_kimono(kimono: KimonoData):
     return Kimono(name=kimono.name, price=[kimono.price], former_price=[kimono.former_price], discount=[kimono.discount], url=kimono.url, timestamp=[kimono.timestamp])
 
 
-if __name__ == '__main__':
-    get_kimonos()
 
 
 # schedule.every().day.at("12:00").do(get_kimonos)
