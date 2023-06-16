@@ -2,7 +2,7 @@ name: deploy-py-lambda
 on:
   push:
     branches:
-      - main
+      - aws_lambda
 jobs:
   build:
     runs-on: ubuntu-latest
