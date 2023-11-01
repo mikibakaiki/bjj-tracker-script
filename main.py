@@ -15,10 +15,8 @@ def get_kimonos():
 
 
 def create_kimono(kimono: KimonoData):
-    # print(f'creating kimono {kimono}')
     # add a kimono
     result = find_one_kimono(kimono.name)
-    # print(f'this is the result -> {result}')
     if result != None:
         # This name already exists, result is the kimono i want
         if (result.img == ''):
