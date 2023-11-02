@@ -27,14 +27,12 @@ def create_kimono(kimono: KimonoData):
                       push__discount=kimono.discount, push__timestamp=kimono.timestamp)
         result.reload()
 
-        print(f'{kimono.name} | {kimono.price} | {kimono.former_price} | {
-              kimono.discount} | {kimono.timestamp}')
+        print(f'{kimono.name} | {kimono.price} | {kimono.former_price} | {kimono.discount} | {kimono.timestamp}')
     else:
         # this kimono does not exist
         new_kimono = convert_kimono_data_to_kimono(kimono)
         new_kimono.save()
-        print(f'{kimono.name} | {kimono.price} | {kimono.former_price} | {
-              kimono.discount} | {kimono.timestamp}')
+        print(f'{kimono.name} | {kimono.price} | {kimono.former_price} | {kimono.discount} | {kimono.timestamp}')
 
 
 def find_one_kimono(name) -> Kimono:
