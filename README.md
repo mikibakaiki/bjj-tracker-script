@@ -1,6 +1,8 @@
 # BJJ Kimono Tracker
 
-Basic script to scrap a specific website and keep track of kimono prices. The idea is to have notifications in the future, when a certain product reaches a certain price.
+Basic script to scrap a specific website and keep track of kimono prices.
+
+The idea is to have notifications in the future, when a certain product reaches a certain price.
 
 # Connection string:
 
@@ -8,9 +10,26 @@ Basic script to scrap a specific website and keep track of kimono prices. The id
 
 `ATLAS_URI=mongodb+srv://USERNAME:password@cluster.mongodb.net/db_name?retryWrites=true&w=majority`
 
-or 
+or
 
-`ATLAS_URI=mongodb+srv://USERNAME:password@cluster0.4bmmqfp.mongodb.net/?retryWrites=true&w=majority`
+`ATLAS_URI=mongodb+srv://USERNAME:password@cluster0.xxxx.mongodb.net/?retryWrites=true&w=majority`
+
+# Requirements:
+
+- Python +3.9
+- virtualenv - `pip install virtualenv`
+
+# Setup:
+
+1. Run the script `./setup.sh`
+2. Create a `.env` file with the `ATLAS_URI` string. This is needed for the connection to the database
+3. Activate the virtualenv: `source bjj_venv/bin/activate`
+4. Run the script `python main.py [--mode] [main, sim, noimg]`
+   4.1 The options are:
+   - main: the default behavior of the script. Will scrap the website and write into the DB
+   - sim: simulation mode - will scrap the website and just print results, not writing to the DB
+   - noimg: retrieve, from the DB, all the kimonos without an img. This is useful because i entered this information later on the dev stage, and not all kimonos have images.
+
 ## Useful commands:
 
 - `nohup python main.py` to [run and let the process sleep](https://stackoverflow.com/questions/2975624/how-to-run-a-script-in-the-background-even-after-i-logout-ssh)
