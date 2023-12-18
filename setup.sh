@@ -6,7 +6,7 @@ VENV_DIR="bjj_venv"
 # Check if the virtual environment directory exists
 if [ ! -d "$VENV_DIR" ]; then
     echo "Creating virtual environment..."
-    python3 -m venv $VENV_DIR
+    virtualenv $VENV_DIR
 else
     echo "Virtual environment already exists."
 fi
