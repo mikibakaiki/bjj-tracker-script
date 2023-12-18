@@ -51,23 +51,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-
-def main():
-    # Set up argument parser
-    parser = argparse.ArgumentParser(description='Process some kimonos.')
-    parser.add_argument('--mode', choices=['main', 'simulate', 'noimg'], default='main',
-                        help='Mode of operation (default: main)')
-
-    # Parse arguments
-    args = parser.parse_args()
-    db_manager = DatabaseManager()
-
-    if args.mode == 'simulate':
-        kimonos = KimonoScraper(URL).scrape()
-        simulate_creation(kimonos, db_manager)
-    elif args.mode == 'noimg':
-        get_all_without_img(db_manager)
-    else:
-        # Default to main process
-        run_main_process()
