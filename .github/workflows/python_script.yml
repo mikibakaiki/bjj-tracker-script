@@ -18,6 +18,8 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Run script
+        env:
+          ATLAS_URI: ${{ secrets.ATLAS_URI }}
         run: python main.py
 
       - name: Upload detailed log file
