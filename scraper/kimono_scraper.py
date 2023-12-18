@@ -36,8 +36,8 @@ class KimonoScraper:
             green, blue, yellow, red, reset = '\033[92m', '\033[94m', '\033[93m', '\033[91m', '\033[0m'
             name_str = f"{green}{self.name}{reset}"
             price_str = f"{self.price}€"
-            url_str = f"{blue}{self.print_hyperlink(self.url, 'URL')}{reset}" if self.url else "No URL"
-            img_str = f"{yellow}{self.print_hyperlink(self.img, 'img')}{reset}" if self.img else "No Image"
+            url_str = f"{blue}{self.url}{reset}" if self.url else "No URL"
+            img_str = f"{yellow}{'img ok'}{reset}" if self.img else "No Image"
 
             if self.former_price != -1.0:
                 strikeout_price = f"{self.former_price}€"
