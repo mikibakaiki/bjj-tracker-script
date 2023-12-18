@@ -18,11 +18,11 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Run script
-        run: python ./main.py
+        run: python main.py
 
       - name: Upload detailed log file
         if: failure()
         uses: actions/upload-artifact@v2
         with:
           name: app-log
-          path: ./app.log
+          path: app.log
