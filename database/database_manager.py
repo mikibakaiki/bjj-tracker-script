@@ -1,4 +1,5 @@
 import logging
+from typing import List
 from mongoengine import *
 from models import Kimono
 from dotenv import dotenv_values
@@ -13,9 +14,15 @@ class DatabaseManager:
         logging.info("Searching for kimono: %s", name)
         return Kimono.objects(name=name).first()
 
-    def create_kimono(self, kimono_data):
+    def find_kimonos_without_img(self) -> List[Kimono]:
+        # Query for documents with an empty 'img' field
+        return Kimono.objects(img__in=[None, ""])
+
+    def create_kimono(self, kimono_data: Kimono):
         kimono = self.find_one_kimono(kimono_data.name)
         if kimono:
+            logging.info("Found kimono with name: %s", kimono_data.name)
+            
             # Update existing kimono
             updates = {
                 "push__price": kimono_data.price,
@@ -24,7 +31,8 @@ class DatabaseManager:
                 "push__timestamp": kimono_data.timestamp
             }
             if not kimono.img:
-                updates["img"] = kimono_data.img
+                updates["set__img"] = kimono_data.img
+            logging.info("Updating in DB: %s", updates)
             kimono.update(**updates)
             kimono.reload()
         else:
