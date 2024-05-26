@@ -49,3 +49,6 @@ or
 - `crontab -e` to run this as a cron job
 
 - `20 10 * * * cd /path/to/bjj_kimonos_scripts && ./bin/python ./main.py` example of the job to run every day at 10h20
+
+## Action Bumps
+bump
