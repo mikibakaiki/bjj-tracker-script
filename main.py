@@ -5,7 +5,7 @@ import logging
 
 logging.basicConfig(level=logging.INFO, filename='app.log', filemode='w', 
                     format='%(name)s - %(levelname)s - %(message)s')
-URL = "https://roninwear.pt/kimono-jiu-jitsu-gi-c-64_303_239.html?all=1&filter_stock=nostock&sort_price=0&filter_price=0&cPath=64_303_239&filter_id=0&filter_size=9&filter_color=0"
+URL = "https://roninwear.pt/kimono-jiu-jitsu-gi-c-64_303_239.html?all=0&filter_stock=nostock&sort_price=0&filter_price=0&cPath=64_303_239&filter_id=0&filter_size=9&filter_color=0"
 
 def simulate_creation() -> None:
     scraper = KimonoScraper(URL)
